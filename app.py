@@ -4,16 +4,18 @@ from models import db, connect_db, User, UserCharacters, UserMovies, UserPosts
 from logic import headers, get_books, get_chapters, get_movies, get_all_characters, add_fav_char, add_fav_movie, search_for_character
 from Form import RegisterForm, LoginForm
 import requests
+import os
 
 
 
 app = Flask(__name__)
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///lotr_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql:///lotr_db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
-app.config['SECRET_KEY'] = 'thisIStheKEY'
+app.config["SECRET_KEY: str"] = True
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'thisIStheKEY')
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 connect_db(app)
