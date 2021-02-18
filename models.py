@@ -162,3 +162,28 @@ class UserPosts(db.Model):
     userid = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     users = db.relationship('User', backref=db.backref('posts', cascade="all, delete-orphan"))
+
+class API_KEY(db.Model):
+
+    __tablename__ = 'key'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+
+    key_type = db.Column(db.Text, nullable=False)
+
+    key = db.Column(db.Text, nullable=False)
+
+    
+    def protect_key(key_type, key):
+
+        hashed_key_type = bcrypt.generate_password_hash(key_type)
+
+        hashed_key_type_utf8 = hashed_key_type.decode('utf8')
+
+        hashed_key = bcrypt.generate_password_hash(key)
+
+        hashed_key_utf8 = hashed_key.decode('utf8')
+
+        new = API_KEY(key_type=hashed_key_type_utf8, key=hashed_key_utf8)
+        db.session.add(new)
+        db.session.commit()

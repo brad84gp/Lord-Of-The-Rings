@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User, UserCharacters, UserMovies, UserPosts
+from models import db, connect_db, User, UserCharacters, UserMovies, UserPosts, API_KEY
 from logic import headers, get_books, get_chapters, get_movies, get_all_characters, add_fav_char, add_fav_movie, search_for_character
 from Form import RegisterForm, LoginForm
 import requests
