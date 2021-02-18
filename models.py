@@ -120,6 +120,45 @@ class UserCharacters(db.Model):
 
     userid = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    users = db.relationship('User', backref=('characters'))
+    users = db.relationship('User', backref=db.backref('characters', cascade="all, delete-orphan"))
 
 
+class UserMovies(db.Model):
+
+    __tablename__ = "movies"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+
+    movie_id = db.Column(db.Text, nullable=False)
+
+    name = db.Column(db.Text, nullable=False)
+
+    runtime = db.Column(db.Integer, nullable=False)
+
+    budget = db.Column(db.Integer, nullable=False)
+
+    boxoffice = db.Column(db.Integer, nullable=False)
+
+    academy_nominations = db.Column(db.Integer, nullable=False)
+
+    academy_wins = db.Column(db.Integer, nullable=False)
+
+    rotten_score = db.Column(db.Integer, nullable=False)
+
+    userid = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    users = db.relationship('User', backref=db.backref('movies', cascade="all, delete-orphan"))
+
+class UserPosts(db.Model):
+
+    __tablename__ = "posts"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+
+    title = db.Column(db.Text, nullable=False)
+
+    post = db.Column(db.Text, nullable=False)
+
+    userid = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    users = db.relationship('User', backref=db.backref('posts', cascade="all, delete-orphan"))

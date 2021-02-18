@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User, UserCharacters
-from logic import headers, get_books, get_chapters, get_movies, get_all_characters, add_fav_char, get_single_character
+from models import db, connect_db, User, UserCharacters, UserMovies, UserPosts
+from logic import headers, get_books, get_chapters, get_movies, get_all_characters, add_fav_char, add_fav_movie, search_for_character
 from Form import RegisterForm, LoginForm
 import requests
 
@@ -108,18 +108,31 @@ def list_all_books():
 def get_characters():
     id = session.get('user_id')
 
-    if session.get('user_id'):
-        userid = session.get('user_id')
-        user = User.query.get(userid)
+    user = User.query.get(id)
+    characters = get_all_characters()
 
-        characters = get_all_characters()
+    return render_template('characters.html', user=user, characters=characters)
 
-        return render_template('characters.html', user=user, characters=characters)
+@app.route('/search', methods=['POST'])
+def search_character():
+    id = session.get('user_id')
+
+    user = User.query.get(id)
+
+    name = request.form['searchBox']
+
+    character_info = search_for_character(name)
+    
+    if character_info:
+        return render_template('searchedCharacter.html', user=user, character=character_info)
+    elif character_info == 'no quote found':
+        flash(f'No quotes were found for {name}')
+        return redirect('/LOTR-characters')
     else:
-        user = User.query.get(id)
-        characters = get_all_characters()
+        flash('Name did not exist OR it was typed wrong. Try again and be sure to Capitalize first and last names!')
+        return redirect('/LOTR-characters')
 
-        return render_template('characters.html', user=user, characters=characters)
+
 
 
 @app.route('/LOTR-movies')
@@ -163,11 +176,16 @@ def get_movies():
 
 @app.route('/Home/<int:user_id>')
 def user_home_page(user_id):
-    user = User.query.get(user_id)
-    characters = UserCharacters.query.filter_by(userid=user_id).all()
+    if session.get('user_id'):
+        user = User.query.get(user_id)
+        characters = UserCharacters.query.filter_by(userid=user_id).all()
+        movies = UserMovies.query.filter_by(userid=user_id).all()
+        posts = UserPosts.query.filter_by(userid=user_id).all()
 
-
-    return render_template('userHome.html', user=user, characters=characters)
+        return render_template('userHome.html', user=user, characters=characters, movies=movies, posts=posts)
+    else:
+        flash('Login Required!')
+        return redirect("/")
 
 @app.route('/logout')
 def logout_user():
@@ -234,30 +252,113 @@ def password_change_success(user_id):
         return redirect(f'/editProfile/{user.id}')
 
 
-@app.route('/favMe/<int:user_id>/<name>')
-def add_favorite_character(user_id, name):
+
+
+"""
+
+    - This is where the routes are that handle the adding and removing of 
+        characters, movies and posts to their home page
+
+    - The logic has been seperated into a seperate file for cleaner more readable
+        code within the logig.py file
+
+"""
+
+
+@app.route('/favMe/<int:user_id>/<name>/<fav_type>')
+def add_favorite_character(user_id, name, fav_type):
     user = User.query.get(user_id)
-    response = add_fav_char(name)
 
-    for x in response['docs']:
+    if fav_type == 'character':
+        characters = UserCharacters.query.filter_by(userid=user_id).all()
 
-        character_id = x['_id']
-        name = x['name']
-        height = x['height'] 
-        race = x['race']
-        gender = x['gender']
-        birth = x['birth']
-        spouse = x['spouse']
-        death = x['death']
-        realm = x['realm']
-        hair = x['hair']
-        wikiLink = x['wikiUrl']
+        if len(characters) <= 2:
+            
+            add_fav_char(user_id, name)
 
-        new_fav_char = UserCharacters(character_id=character_id, name=name, height=height, race=race, gender=gender,
-        birth=birth, spouse=spouse, death=death, realm=realm, hair=hair, wikiLink=wikiLink)
-        user.characters.append(new_fav_char)
-        db.session.commit()
+            return redirect(f'/Home/{user.id}')
+        else:
+            flash('Already have 3 favorite characters, please remove one before you add another!')
+            return redirect('/LOTR-characters')
+    elif fav_type == 'movie':
+        movies = UserMovies.query.filter_by(userid=user_id).all()
+
+        if len(movies) <=2:
+
+            add_fav_movie(user_id, name)
+
+            return redirect(f'/Home/{user.id}')
+        else:
+            flash('Already have 3 favorite movies, please remove one before you add another!')
+            return redirect('/LOTR-movies')
+
+
+    
+
+@app.route('/remove/<name>/<int:user_id>')
+def remove_fav_character(name, user_id):
+    user = User.query.get(user_id)
+    characters = UserCharacters.query.filter_by(userid=user_id).all()
+
+    movies = UserMovies.query.filter_by(userid=user_id).all()
+
+    for character in characters:
+        if character.name == name:
+            db.session.delete(character)
+            db.session.commit()
+    for movie in movies:
+        if movie.name == name:
+            db.session.delete(movie)
+            db.session.commit()
 
     return redirect(f'/Home/{user.id}')
 
+@app.route('/addPost/<int:user_id>', methods=['POST'])
+def add_post(user_id):
+    user = User.query.get(user_id)
+
+    title = request.form['title']
+    post = request.form['post']
     
+    if title == "" or post == "":
+        flash('Please fill out both title and post')
+        return redirect(f'/Home/{user.id}')
+    else:
+        new_post = UserPosts(title=title, post=post)
+
+        user.posts.append(new_post)
+
+        db.session.commit()
+
+        return redirect(f'/Home/{user.id}')
+
+
+
+   
+
+@app.route('/removePost/<int:user_id>/<post_title>')
+def remove_post(user_id, post_title):
+    user = User.query.get(user_id)
+    post_to_remove = UserPosts.query.filter_by(title=post_title).first()
+
+    db.session.delete(post_to_remove)
+    db.session.commit()
+
+    return redirect(f'/Home/{user.id}')
+
+@app.route('/mainFeed')
+def get_all_posts():
+    id = session.get("user_id")
+    user = User.query.get(id)
+    posts = UserPosts.query.all()
+
+    return render_template('mainFeed.html', user=user, posts=posts)
+
+@app.route('/deleteAccount/<int:user_id>')
+def delete_account(user_id):
+    user = User.query.get(user_id)
+    db.session.delete(user)
+    db.session.commit()
+
+    flash('Account Deleted')
+    return redirect('/')

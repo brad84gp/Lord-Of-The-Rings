@@ -33,6 +33,7 @@
                       Profile
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                      <li><a class="dropdown-item" href="/mainFeed">Main Feed</a></li>
                       <li><a class="dropdown-item" href="/Home/{{user.id}}">Profile</a></li>
                       <li><a class="dropdown-item" href="/editProfile/{{user.id}}">Edit Profile</a></li>
                       <li><a class="dropdown-item" href="/logout">Logout</a></li>
@@ -79,7 +80,9 @@
             <div class="card-group">
               {% for character in characters%}
               <div class="card m-2">
-                  <h3 class="ms-3">{{character.name}}</h3>
+                  <h4 class="ms-3">{{character.name}}
+                  <span style="justify-content: right;"><a href="/remove/{{character.name}}/{{user.id}}" role="button" class="btn btn-sm btn-danger">X</a></span>
+                  </h4>
                   <div class="card-body" >
                     <ul>
                         <li>Height: {{character.height}}</li>
@@ -90,7 +93,7 @@
                         <li>Death: {{character.death}}</li>
                         <li>Realm: {{character.realm}}</li>
                         <li>Hair: {{character.hair}}</li>
-                        <li>WikiLink: {{character.WikiLink}}</li>
+                        <li>WikiLink: {{character.wikiLink}}</li>
                     </ul>
                   </div>
                 </div>
@@ -100,7 +103,76 @@
           </div>
 
 
+          <div class="row mt-5">
+            <h3 class="d-flex justify-content-center" style="color: whitesmoke;">Top 3 Favorite Movies</h3>
+          </div>
+
+
+          <div class="row mt-3">
+            <div class="card-group">
+                {% for movie in movies%}
+                <div class="card m-2" style="height: 356px;">
+                    <h4 class="ms-3">{{movie.name}}
+                    <span style="justify-content: right;"><a href="/remove/{{movie.name}}/{{user.id}}" role="button" class="btn btn-sm btn-danger">X</a></span>
+                    </h4>
+                    <div class="card-body" >
+                      <ul>
+                          <li>RunTime: {{movie.runtime}}</li>
+                          <li>Budget: {{movie.budget}}</li>
+                          <li>Boxoffice: {{movie.boxoffice}}</li>
+                          <li>Academy Nominations: {{movie.academy_nominations}}</li>
+                          <li>Academy Wins: {{movie.academy_wins}}</li>
+                          <li>Rotten Tomates Score: {{movie.rotten_score}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+          </div>
+
+
+          
+
+          <div class="row mt-3">
+
+            <div class="col-5">
+              <div class="row mt-5">
+                <h3 class="d-flex justify-content-center" style="color: whitesmoke;">Enter Post</h3>
+                {% for msg in get_flashed_messages() %}
+                  <h5 style="color: whitesmoke;">{{msg}}</h5>
+                {% endfor %}
+              </div>
+              <div class="row">
+                <form action="/addPost/{{user.id}}" method="POST">
+                  <input class="mt-3 mb-3"type="text" name="title" placeholder="Title Here" style="width: 99%;">
+                  <textarea rows="10" id="postBox" name="post" placeholder="Enter Post Here" style="color: black; width: 99%;" ></textarea>
+                  <button class="btn btn-success">Post</button>
+                </form>
+              </div>
+            </div>
+
+            <div class="col-2"></div>
+
+            <div class="col-5 mt-5">
+
+              <div class="row">
+                <h3 class="d-flex justify-content-center" style="color: whitesmoke;">Recent Posts</h3>
+                
+              </div>
+
+              {% for post in posts %}
+                <div class="card border-dark mt-3" style="width: 100%;">
+                  <div class="card-header">{{post.title}}</div>
+                  <div class="card-body text-dark">
+                    <p class="card-text">{{post.post}}</p>
+                  </div>
+                </div>
+                <a href="/removePost/{{user.id}}/{{post.title}}" role="button" class="btn btn-sm btn-danger mt-2 d-flex justify-content-center">Remove Post</a>
+              {% endfor %}
+            </div>
+          </div>
       </div>
+
       
 
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>

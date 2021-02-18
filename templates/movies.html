@@ -21,7 +21,7 @@
               <a class="nav-link" aria-current="page" href="/LOTR-books">Books</a>
             </li>
             <li class="nav-item" style="margin-right: 100px;">
-              <a class="nav-link" href="/LOTR-characters/1">Characters</a>
+              <a class="nav-link" href="/LOTR-characters">Characters</a>
             </li>
             <li class="nav-item"  style="margin-right: 100px;">
               <a class="nav-link" href="/LOTR-movies">Movies</a>
@@ -32,6 +32,7 @@
                       Profile
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                      <li><a class="dropdown-item" href="/mainFeed">Main Feed</a></li>
                       <li><a class="dropdown-item" href="/Home/{{user.id}}">Profile</a></li>
                       <li><a class="dropdown-item" href="/editProfile/{{user.id}}">Edit Profile</a></li>
                       <li><a class="dropdown-item" href="/logout">Logout</a></li>
@@ -49,17 +50,24 @@
     </div>
   </nav>
 
+
+    <div class="row">
+      {% for msg in get_flashed_messages() %}
+        <h3 class="d-flex justify-content-center mt-3" style="color: whitesmoke">{{msg}}</h3>
+      {% endfor %}
+    </div>
+    
     <div class="row">
         <div class="col-1"></div>
         <div class="col-4">
-            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678); margin-bottom: 2%;">&#8544;</span></div>
-            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678);margin-bottom: 2%;">&#8545;</span></div>
-            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678);margin-bottom: 2%;">&#8546;</span></div>
-            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678);margin-bottom: 2%;">&#8547;</span></div>
-            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678);margin-bottom: 2%;">&#8548;</span></div>
-            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678);margin-bottom: 2%;">&#8549;</span></div>
-            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678);margin-bottom: 2%;">&#8550;</span></div>
-            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678);margin-bottom: 2%;">&#8551;</span></div>
+            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678); margin-top: 3%;">&#8544;</span></div>
+            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678); margin-top: 8%;">&#8545;</span></div>
+            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678); margin-top: 8%;">&#8546;</span></div>
+            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678); margin-top: 12%;">&#8547;</span></div>
+            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678); margin-top: 8%;">&#8548;</span></div>
+            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678); margin-top: 8%;">&#8549;</span></div>
+            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678); margin-top: 8%;">&#8550;</span></div>
+            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678); margin-top: 12%;">&#8551;</span></div>
         </div>
         <div class="col-5 mt-5">
             {% for movie in movies%}
@@ -70,11 +78,19 @@
                             <th scope="row">{{key}}: {{value}}</th>
                         </tr>
                         {% endfor %}
+                        <tr>
+                          {% for key, value in movie.items() %}
+                            {% if session.user_id %}
+                              {% if key == 'Movie Title' %}
+                                <th scope="row">
+                                  <a href="/favMe/{{user.id}}/{{value}}//movie" role="button" class="btn btn-sm btn-danger btn-lg mb-2" style="justify-content: right;">Favorite</a>
+                                </th>
+                              {% endif %}
+                            {% endif %}
+                          {% endfor %}
+                        </tr>
                     </tbody>
                 </table>
-                  {% if session.user_id %}
-                    <a href="/addFavorite/{{user.id}}/movie/{{id}}" role="button" class="btn btn-sm btn-danger btn-lg mb-2" style="margin-right: 0;">Favorite</a>
-                  {% endif %}
             {% endfor %}
         </div>
         <div class="col-1"></div>

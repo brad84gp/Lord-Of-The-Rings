@@ -33,6 +33,7 @@
                       Profile
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                      <li><a class="dropdown-item" href="/mainFeed">Main Feed</a></li>
                       <li><a class="dropdown-item" href="/Home/{{user.id}}">Profile</a></li>
                       <li><a class="dropdown-item" href="/editProfile/{{user.id}}">Edit Profile</a></li>
                       <li><a class="dropdown-item" href="/logout">Logout</a></li>
@@ -53,6 +54,12 @@
     {% block content %}
 
     <div class="container-lg mt-5">
+
+      <div class="row">
+        {% for msg in get_flashed_messages() %}
+          <h3 class="d-flex justify-content-center mt-3" style="color: black">{{msg}}</h3>
+        {% endfor %}
+      </div>
 
       <div class="row">
         <div class="col-1"></div>
