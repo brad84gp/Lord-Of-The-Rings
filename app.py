@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, User, UserCharacters
-from logic import headers, get_books, get_chapters, get_movies, get_all_characters
+from logic import headers, get_books, get_chapters, get_movies, get_all_characters, add_fav_char, get_single_character
 from Form import RegisterForm, LoginForm
 import requests
 
@@ -164,8 +164,10 @@ def get_movies():
 @app.route('/Home/<int:user_id>')
 def user_home_page(user_id):
     user = User.query.get(user_id)
+    characters = UserCharacters.query.filter_by(userid=user_id).all()
 
-    return render_template('userHome.html', user=user)
+
+    return render_template('userHome.html', user=user, characters=characters)
 
 @app.route('/logout')
 def logout_user():
@@ -232,7 +234,30 @@ def password_change_success(user_id):
         return redirect(f'/editProfile/{user.id}')
 
 
-    
+@app.route('/favMe/<int:user_id>/<name>')
+def add_favorite_character(user_id, name):
+    user = User.query.get(user_id)
+    response = add_fav_char(name)
 
+    for x in response['docs']:
+
+        character_id = x['_id']
+        name = x['name']
+        height = x['height'] 
+        race = x['race']
+        gender = x['gender']
+        birth = x['birth']
+        spouse = x['spouse']
+        death = x['death']
+        realm = x['realm']
+        hair = x['hair']
+        wikiLink = x['wikiUrl']
+
+        new_fav_char = UserCharacters(character_id=character_id, name=name, height=height, race=race, gender=gender,
+        birth=birth, spouse=spouse, death=death, realm=realm, hair=hair, wikiLink=wikiLink)
+        user.characters.append(new_fav_char)
+        db.session.commit()
+
+    return redirect(f'/Home/{user.id}')
 
     

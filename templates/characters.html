@@ -72,21 +72,22 @@
               <div class="card-header">
                 {% for key, value in character.items() %}
                   {% if key == 'Name' %}
-                    <h4 style="color: rgba(0, 89, 255, 0.952);">{{value}}</h4>
+                    <h4 style="color: rgb(0, 102, 255);">{{value}}</h4>
+                      {% if session.user_id%}
+                      <span style="margin-left: 85%;"><a href="/favMe/{{user.id}}/{{value}}" class="btn btn-outline-dark pt-4" style="width: 50px; height: 200px; font-size: xx-large;">Fav</a></span>
+                      {% endif %}
                     </div>
                     <div class="card-body mt-4">
-                      {% elif key != 'WikiLink'%}
+                      {% elif key != 'Name'%}
                         <li style="color: black">{{key}} : {{value}}</li>
-                      {% elif key == 'WikiLink' %}
-                        <span  id="myPopover" class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="popover">
-                          <a href="#" class="btn btn-success stretched-link">{{value}}</a>
-                        </span>
-                  {% endif %}
+                  {% endif %}    
                 {% endfor %}
               </div>
             </div>
+            
           </div>
         {% endfor %}
+        
       </div>
     
     </div>

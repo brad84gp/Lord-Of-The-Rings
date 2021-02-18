@@ -74,13 +74,3 @@
 
 // }
 
-var exampleEl = document.getElementById('example')
-var myPopoverTrigger = document.getElementById('myPopover')
-myPopoverTrigger.addEventListener('show.bs.popover', function () {
-    console.log('works')
-})
-// var newPopperConfig = {...}
-// use defaultBsPopperConfig if needed...
-// return newPopperConfig
-
-

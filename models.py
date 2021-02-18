@@ -92,9 +92,31 @@ class UserCharacters(db.Model):
 
     __tablename__ = 'characters'
 
+    
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
     character_id = db.Column(db.Text, nullable=False)
+
+    name = db.Column(db.Text, nullable=False)
+
+    height = db.Column(db.Text, nullable=False)
+
+    race = db.Column(db.Text, nullable=False)
+
+    gender = db.Column(db.Text, nullable=False)
+
+    birth = db.Column(db.Text, nullable=False)
+
+    spouse = db.Column(db.Text, nullable=False)
+
+    death = db.Column(db.Text, nullable=False)
+
+    realm = db.Column(db.Text, nullable=False)
+
+    hair = db.Column(db.Text, nullable=False)
+
+    wikiLink = db.Column(db.Text, nullable=False)
 
     userid = db.Column(db.Integer, db.ForeignKey('users.id'))
 

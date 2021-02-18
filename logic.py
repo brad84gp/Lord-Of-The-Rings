@@ -1,8 +1,7 @@
 import requests
+from config import headers
 
 
-
-headers = {"Authorization": "Bearer SM2-H9EPKADRqF7VCURF"}
 
 
 def get_books():
@@ -15,7 +14,7 @@ def get_chapters(id):
 
 
 def get_all_characters():
-    response = requests.get(f'https://the-one-api.dev/v2/character', headers=headers)
+    response = requests.get('https://the-one-api.dev/v2/character', headers=headers)
     data = response.json()
     
    
@@ -49,4 +48,36 @@ def get_movies():
 
     return movie_info
    
-    
+def add_fav_char(name):
+    response = requests.get(f'https://the-one-api.dev/v2/character?name={name}', headers=headers)
+    data = response.json()
+
+    return data
+
+def get_single_character(name):
+    response = requests.get(f'https://the-one-api.dev/v2/character?name={name}', headers=headers)
+    data = response.json()
+
+    characters_list = []
+
+    for x in data['docs']:
+        try:
+            if x['wikiUrl']:
+                    wikiUrl = x['wikiUrl']
+        except:
+            wikiUrl = ""
+
+        character_info = {
+            "Name": x['name'],
+            "Height": x['height'],
+            "Race": x['race'],
+            "Birth": x['birth'],
+            "Spouse": x['spouse'],
+            "Death": x['death'],
+            "Realm": x['realm'],
+            "Hair": x['hair'],
+            "WikiLink": wikiUrl
+        }
+        characters_list.append(character_info)
+
+    return characters_list
