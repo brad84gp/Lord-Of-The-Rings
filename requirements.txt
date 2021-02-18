@@ -13,10 +13,12 @@ click==7.1.2
 colorama==0.4.4
 decorator==4.4.2
 distlib==0.3.1
+dnspython==2.1.0
 filelock==3.0.12
 Flask==1.1.2
 Flask-Bcrypt==0.7.1
 Flask-DebugToolbar==0.11.0
+Flask-Login==0.5.0
 Flask-SQLAlchemy==2.4.4
 Flask-WTF==0.14.3
 forex-python==1.5
@@ -26,6 +28,7 @@ idna==2.10
 iniconfig==1.1.1
 ipython==7.19.0
 ipython-genutils==0.2.0
+is-disposable-email==1.0.0
 itsdangerous==1.1.0
 jedi==0.17.2
 Jinja2==2.11.2
@@ -53,3 +56,4 @@ wcwidth==0.2.5
 Werkzeug==1.0.1
 word2number==1.1
 WTForms==2.3.3
+wtforms-validators==1.0.0
