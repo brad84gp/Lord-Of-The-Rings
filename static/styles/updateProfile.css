@@ -1,0 +1,37 @@
+#form input{
+    display: inline;
+    width: 75%;
+    margin: 5% 0% 5% 12%;
+    border: rgb(0, 0, 0);
+    border-style: groove;
+    
+}
+
+#form label{
+    color: whitesmoke;
+    margin-left: 12%;
+    margin-top: 5%;
+}
+
+
+#form textarea{
+    color: whitesmoke;
+    margin-left: 12%;
+    margin-top: 5%;
+}
+
+#form p{
+    font-size: small;
+    margin-left: 12%;
+}
+
+#form {
+    border: white;
+    border-style: inset;
+    border-width: 5px;
+
+}
+
+body{
+    color: whitesmoke;
+}

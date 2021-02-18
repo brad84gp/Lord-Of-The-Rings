@@ -1,0 +1,21 @@
+.card{
+    position: relative;
+    color: black;
+    background-color: rgba(231, 219, 219, 0.993);
+    border: red;
+    border-style: ridge;
+    font-size: large;
+}
+
+.card-header{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+#col{
+    width: 350px;
+    margin-left: 2%;
+}

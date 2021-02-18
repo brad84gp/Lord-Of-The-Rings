@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col">
+          <div class="row">
+            {% for book,description in books.items() %}
+            <div class="card border border-3 border-dark rounded-3" style="margin-top: 25%; margin-left: 3%; width: 30%;">
+              <h5 class="card-header p-3">
+              {{book}}
+              </h5>
+              <h3 class="blockquote-footer mb-2">Written by: <cite title="Source Title">J.R.R. Tolkien</cite></h3>
+              <div class="card-body">
+                  <ol>
+                    <h4 class="mb-2" style="text-align: center;"><b><u>Chapters</u></b></h4>
+                    {% for desc in description %}
+                      <li>{{desc}}</li>
+                    {% endfor %}
+                  </ol>
+              </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-1"></div>
+{% endblock %}
