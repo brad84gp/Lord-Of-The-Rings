@@ -5,7 +5,7 @@ from logic import headers, get_books, get_chapters, get_movies, get_all_characte
 from Form import RegisterForm, LoginForm
 import requests
 import os
-
+import psycopg2
 
 
 app = Flask(__name__)
@@ -139,39 +139,73 @@ def search_character():
 
 @app.route('/LOTR-movies')
 def get_movies():
-    userid = session.get('user_id')
-    user = User.query.get(userid)
+    if session.get('user_id'):
+        userid = session.get('user_id')
+        user = User.query.get(userid)
+
     
-    response = requests.get('https://the-one-api.dev/v2/movie', headers=headers)
-
-    data = response.json()
-
-    movie_ids = []
-
-    for x in data['docs']:
-        movie_ids.append(x['_id'])
-
-    movie_info = []
-
-
-    for x in movie_ids:
-        response = requests.get(f'https://the-one-api.dev/v2/movie/{x}', headers=headers)
+        response = requests.get('https://the-one-api.dev/v2/movie', headers=headers)
 
         data = response.json()
 
-        for info in data['docs']:
-            movie_data = {
-                "Movie Title": info['name'],
-                "Run Time": info['runtimeInMinutes'],
-                "Budget In Millions": info['budgetInMillions'],
-                "Box Office Revenu In Millions": info['boxOfficeRevenueInMillions'],
-                "Academy Award Nominatations": info['academyAwardNominations'],
-                "Academ Award Wins": info['academyAwardWins'],
-                "Rotten Tomates Score": info['rottenTomatesScore']
-            }
-            movie_info.append(movie_data)
+        movie_ids = []
 
-    return render_template('movies.html', user=user, movies=movie_info, movie_id=movie_ids)
+        for x in data['docs']:
+            movie_ids.append(x['_id'])
+
+        movie_info = []
+
+
+        for x in movie_ids:
+            response = requests.get(f'https://the-one-api.dev/v2/movie/{x}', headers=headers)
+
+            data = response.json()
+
+            for info in data['docs']:
+                movie_data = {
+                    "Movie Title": info['name'],
+                    "Run Time": info['runtimeInMinutes'],
+                    "Budget In Millions": info['budgetInMillions'],
+                    "Box Office Revenu In Millions": info['boxOfficeRevenueInMillions'],
+                    "Academy Award Nominatations": info['academyAwardNominations'],
+                    "Academ Award Wins": info['academyAwardWins'],
+                    "Rotten Tomates Score": info['rottenTomatesScore']
+                }
+                movie_info.append(movie_data)
+
+        return render_template('movies.html', user=user, movies=movie_info)
+    else:
+        response = requests.get('https://the-one-api.dev/v2/movie', headers=headers)
+
+        data = response.json()
+
+        movie_ids = []
+
+        for x in data['docs']:
+            movie_ids.append(x['_id'])
+
+        movie_info = []
+
+
+        for x in movie_ids:
+            response = requests.get(f'https://the-one-api.dev/v2/movie/{x}', headers=headers)
+
+            data = response.json()
+
+            for info in data['docs']:
+                movie_data = {
+                    "Movie Title": info['name'],
+                    "Run Time": info['runtimeInMinutes'],
+                    "Budget In Millions": info['budgetInMillions'],
+                    "Box Office Revenu In Millions": info['boxOfficeRevenueInMillions'],
+                    "Academy Award Nominatations": info['academyAwardNominations'],
+                    "Academ Award Wins": info['academyAwardWins'],
+                    "Rotten Tomates Score": info['rottenTomatesScore']
+                }
+                movie_info.append(movie_data)
+
+        return render_template('movies.html', movies=movie_info)
+
     
 
 
