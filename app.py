@@ -11,7 +11,8 @@ import psycopg2
 app = Flask(__name__)
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql:///lotr_db')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get
+    ('DATABASE_URL', 'postgresql:///lotr_db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
 app.config["SECRET_KEY: str"] = True
