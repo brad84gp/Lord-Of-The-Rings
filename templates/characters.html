@@ -51,9 +51,9 @@
       </nav>
 
     {% block content %}
-    <div class="row" ">
+    <div class="row">
       <form action="/search" class="d-flex justify-content-center mt-3" method="POST">
-        <label for="box" style="color: whitesmoke; margin-right: 3%;">Search By Name: </label>
+        <label for="box" style="color: whitesmoke; margin-right: 3%;">Search By Name For Quotes: </label>
         <input class="form-control me-2" id="box" name="searchBox" style="width: 250px;" type="search" placeholder="Search" aria-label="Search" >
         <button class="btn btn-outline-danger ms-3" type="submit">Search</button>
       </form>
@@ -67,7 +67,7 @@
 
     <div class="container-lg mt-4" >
     
-      <div class="row row-cols-1 row-cols-md-2 g-4">
+      <div class="row row-cols-1 row-cols-lg-2 g-4">
         {% for character in characters%}
           <div class="col">
             <div class="card" style="height: 316px;">

@@ -1,0 +1,37 @@
+#roman-symbols{
+    text-align: center; 
+    font-size: 45px; 
+    color: rgba(245, 245, 245, 0.678); 
+    margin-top: 150%;
+    height: 200px;
+}
+
+@media (min-width: 576px) {
+    #roman-symbols{
+        text-align: center; 
+        font-size: 70px; 
+        color: rgba(245, 245, 245, 0.678); 
+        margin-top: 125%;
+        height: 200px;
+    }
+}
+
+@media (min-width: 768px) {
+    #roman-symbols{
+        text-align: center; 
+        font-size: 100px; 
+        color: rgba(245, 245, 245, 0.678); 
+        margin-top: 50%;
+        height: 220px;
+    }
+}
+
+@media (min-width: 992px) {
+    #roman-symbols{
+        text-align: center; 
+        font-size: 200px; 
+        color: rgba(245, 245, 245, 0.678); 
+        margin-top: 10%;
+        height: 220px;
+    }
+}

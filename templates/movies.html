@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='/styles/movies.css') }}">
 </head>
 <body class="bg-dark">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-3 border-white" >
@@ -57,21 +58,22 @@
       {% endfor %}
     </div>
     
+
     <div class="row">
         <div class="col-1"></div>
-        <div class="col-4">
-            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678); margin-top: 3%;">&#8544;</span></div>
-            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678); margin-top: 8%;">&#8545;</span></div>
-            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678); margin-top: 8%;">&#8546;</span></div>
-            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678); margin-top: 12%;">&#8547;</span></div>
-            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678); margin-top: 8%;">&#8548;</span></div>
-            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678); margin-top: 8%;">&#8549;</span></div>
-            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678); margin-top: 8%;">&#8550;</span></div>
-            <div class="row"><span id="roman-symbols" style="text-align: center; font-size: 200px; color: rgba(245, 245, 245, 0.678); margin-top: 12%;">&#8551;</span></div>
+        <div class="col-2 col-md-3 col-lg-4">
+            <div class="row"><span id="roman-symbols" >&#8544;</span></div>
+            <div class="row"><span id="roman-symbols" >&#8545;</span></div>
+            <div class="row"><span id="roman-symbols" >&#8546;</span></div>
+            <div class="row"><span id="roman-symbols" >&#8547;</span></div>
+            <div class="row"><span id="roman-symbols" >&#8548;</span></div>
+            <div class="row"><span id="roman-symbols" >&#8549;</span></div>
+            <div class="row"><span id="roman-symbols" >&#8550;</span></div>
+            <div class="row"><span id="roman-symbols" >&#8551;</span></div>
         </div>
-        <div class="col-5 mt-5">
+        <div class="col-8 col-md-7 col-lg-5 mt-5">
             {% for movie in movies%}
-                <table class="table table-secondary table-striped mb-4 border border-2 border-light">
+                <table class="table table-secondary table-striped mb-4 border border-2 border-light" style="width: 100%;">
                     <tbody>
                         {% for key, value in movie.items() %}
                         <tr>
@@ -96,6 +98,7 @@
         <div class="col-1"></div>
 
     </div>
+
         
     
 

@@ -35,3 +35,17 @@
 body{
     color: whitesmoke;
 }
+
+#pwd-btn{
+    margin-left: 60%;
+    margin-bottom: 5%;
+    width: auto;
+}
+
+@media (max-width: 977px) {
+    #pwd-btn{
+        margin-left: 20%;
+        margin-bottom: 5%;
+        width: auto;
+    }
+}
