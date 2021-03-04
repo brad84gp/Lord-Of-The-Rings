@@ -1,4 +1,22 @@
 # Lord-Of-The-Rings
+|Languages & Frameworks & Libraries |
+| :-------------------------------: |                                                                                     
+|              HTML                 |                             
+|              css                  |                            
+|           JavaScript              | 
+|             Python                | 
+|           SqlAlchemy              | 
+|            Postgres               | 
+|             Flask                 | 
+|           Bootstrap               | 
+|            WTForms                | 
+|             Bcrypt                | 
+
+
+|                            |      Links                                  |                                               
+| :-----------------------: | :-------------------------------------------:  |                      
+| Live View of Application | [Need] (http://lotr-fanpage.herokuapp.com/)  |
+| Link to API resource | [Need] (https://the-one-api.dev/documentation#1) |
 
 
   Brief Overview 
@@ -7,24 +25,4 @@
  
 Reasoning For Multiple Languages
                  - The wesbite utalizes a mix match of langues and frameworks. The purpose for this was to demonstrate my understanding of these. The purpose was to show how I                      am able to utalize each of these on their own and together. I hose to show you how I am able to use Bootstrap, CSS, and HTML to style a webpage. I initially                      used both Python and vanilla Javacriipt to handle the API, but changed it to only Python handling the requests. I left one javascript API included within the                    characters.js file. This code has been commented out but was left to deomsntrate understanding of ajax request. The webstie has also been pushed to heroku,                      the following link is to the active heroku site. http://lotr-fanpage.herokuapp.com/
-  
-  Languages & Frameworks & Libraries Used
-                 - HTML
-                 - CSS
-                 - Javascript
-                 - Python
-                 - Flask
-                 - SQLALCHEMY
-                 - Postgres
-                 - Bootstrap
-                 - Bcrypt
-                 - WTForms
-                 
-  
-  API Location 
-                 - https://the-one-api.dev/documentation#1
-                 - The API uses a Bearer token that I got when I registered for the account. That has been sealed in my config.py and hide in .gitignore
-  
-  
-  
-               
+
