@@ -2,13 +2,13 @@
 |   Languages/Frameworks/Libraries  |   Relative Links   |
 | :-------------------------------: | :----------------: |                                                                                     
 |              HTML                 | [templates](/templates) |                            
-|              css                  | [static](/static/styles)                             
+|              css                  | [styles](/static/styles)                             
 |           JavaScript              | [static](/static)  
 |             Python                | [logic.py](logic.py) & [app.py](app.py) |
 |           SqlAlchemy              | [models.py](models.py) | 
-|            Postgres               | 
+|            Postgres               | [models.py](models.py) | 
 |             Flask                 | [app.py](app.py) | 
-|           Bootstrap               | 
+|           Bootstrap               | [templates](/templates)
 |            WTForms                | [Form.py](forms.py) | 
 |             Bcrypt                | [models.py](models.py) | 
 
