@@ -1,16 +1,17 @@
 # Lord-Of-The-Rings
-|Languages & Frameworks & Libraries |
-| :-------------------------------: |                                                                                     
-|              HTML                 |                             
-|              css                  |                            
-|           JavaScript              | 
-|             Python                | 
-|           SqlAlchemy              | 
+|   Languages/Frameworks/Libraries  |   Relative Links   |
+| :-------------------------------: | :----------------: |                                                                                     
+|              HTML                 | [templates](/templates) |                            
+|              css                  | [static](/static/styles)                             
+|           JavaScript              | [static](/static)  
+|             Python                | [logic.py](logic.py) & [app.py](app.py) |
+|           SqlAlchemy              | [models.py](models.py) | 
 |            Postgres               | 
-|             Flask                 | 
+|             Flask                 | [app.py](app.py) | 
 |           Bootstrap               | 
-|            WTForms                | 
-|             Bcrypt                | 
+|            WTForms                | [Form.py](forms.py) | 
+|             Bcrypt                | [models.py](models.py) | 
+
 
 
 |                            |      Links                                  |                                               
